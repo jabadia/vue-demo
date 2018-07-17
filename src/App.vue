@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="app">
+        <h2>Equipos</h2>
+        <ul class="team-list">
+            <li v-for="team in teams">
+                {{team.emojiString}} {{team.name}}
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+    const WORLDCUP_DATA_URL = 'https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json';
+    import axios from 'axios';
 
-export default {
-  name: "app",
-  components: {
-    HelloWorld
-  }
-};
+    export default {
+        name: 'app',
+        data: () => {
+            return {
+                teams: [],
+            };
+        },
+        mounted() {
+            axios.get(WORLDCUP_DATA_URL)
+                .then(response => response.data)
+                .then(data => {
+                    this.teams = data.teams;
+                });
+        },
+    };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    .team-list {
+        list-style: none;
+        padding: 0;
+    }
 </style>
