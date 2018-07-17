@@ -2,7 +2,7 @@
     <div id="app">
         <h2>Equipos</h2>
         <ul class="team-list">
-            <li v-for="team in teams">
+            <li v-for="team in sortedTeams">
                 {{team.emojiString}} {{team.name}}
             </li>
         </ul>
@@ -19,6 +19,11 @@
             return {
                 teams: [],
             };
+        },
+        computed: {
+            sortedTeams() {
+                return _.orderBy(this.teams, 'name');
+            },
         },
         mounted() {
             axios.get(WORLDCUP_DATA_URL)
