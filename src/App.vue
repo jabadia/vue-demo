@@ -15,9 +15,7 @@
             </span>
         </div>
         <div class="team-list">
-            <div class="team-item" v-for="team in filteredTeams">
-                {{team.emojiString}} {{team.name}}
-            </div>
+            <team-item v-for="team in filteredTeams" :team="team" :key="team.id" />
         </div>
     </div>
 </template>
@@ -26,6 +24,7 @@
     const WORLDCUP_DATA_URL = 'https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json';
     import axios from 'axios';
     import _ from 'lodash';
+    import TeamItem from './components/TeamItem';
 
     export default {
         name: 'app',
@@ -60,6 +59,9 @@
                     this.teams = data.teams;
                 });
         },
+        components: {
+            TeamItem,
+        },
     };
 </script>
 
@@ -81,9 +83,5 @@
     .team-list {
         display: flex;
         flex-wrap: wrap;
-    }
-
-    .team-item {
-        width: 150px;
     }
 </style>
