@@ -5,12 +5,12 @@
             <span class="initial"
                   :class="{'initial--selected': initial===selectedInitial}"
                   v-for="initial in initials"
-                  @click="selectedInitial=initial">
+                  @click="selectInitial(initial)">
                 {{initial}}
             </span>
             <span class="initial"
                   :class="{'initial--selected': undefined===selectedInitial}"
-                  @click="selectedInitial=undefined">
+                  @click="selectInitial(undefined)">
                 Todos
             </span>
         </div>
@@ -46,6 +46,11 @@
             },
             initials() {
                 return _.uniq(this.sortedTeams.map(team => team.name.charAt(0)));
+            },
+        },
+        methods: {
+            selectInitial(initial) {
+                this.selectedInitial = initial;
             },
         },
         mounted() {
