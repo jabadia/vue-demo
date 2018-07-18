@@ -32,4 +32,10 @@ export default {
                 return allMatches;
             });
     },
+    getStadiums() {
+        return _getData()
+            .then(data => {
+                return data.stadiums;
+            });
+    },
 };
