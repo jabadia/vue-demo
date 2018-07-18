@@ -24,21 +24,24 @@
         },
         data() {
             return {
-                team: undefined,
+                teams: undefined,
                 allMatches: undefined,
             };
         },
         computed: {
             matches() {
-                return this.allMatches.filter(match =>
+                return this.allMatches && this.allMatches.filter(match =>
                     match.home_team === this.team.id ||
                     match.away_team === this.team.id,
                 );
             },
+            team() {
+                return _.find(this.teams, {fifaCode: this.fifaCode});
+            }
         },
         mounted() {
             dataApi.getTeams().then(teams => {
-                    this.team = _.find(teams, {fifaCode: this.fifaCode});
+                    this.teams = teams;
             });
             dataApi.getMatches().then(matches => {
                this.allMatches = matches;
