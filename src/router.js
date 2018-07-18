@@ -9,8 +9,8 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {path: '/', component: TeamsView},
-        {path: '/team/:fifaCode', component: TeamDetailsView, props: true},
+        {name: 'home',         path: '/', component: TeamsView},
+        {name: 'team-details', path: '/team/:fifaCode', component: TeamDetailsView, props: true},
     ]
 });
 

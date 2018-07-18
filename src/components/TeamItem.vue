@@ -1,5 +1,8 @@
 <template>
-    <router-link :to="'/team/' + team.fifaCode" tag="div" class="team-item with-shadow">
+    <router-link
+        tag="div"
+        :to="{name: 'team-details', params: {fifaCode: team.fifaCode}}"
+        class="team-item with-shadow">
         <img class="team-item__flag" :src="team.flag" :alt="team.name">
         {{team.name}}
     </router-link>
