@@ -15,10 +15,8 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import dataApi from '../helpers/dataApi';
     import MatchItem from '../components/MatchItem';
-
-    const WORLDCUP_DATA_URL = 'https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json';
 
     export default {
         props: {
@@ -39,15 +37,12 @@
             },
         },
         mounted() {
-            axios.get(WORLDCUP_DATA_URL)
-                .then(response => response.data)
-                .then(data => {
-                    this.team = _.find(data.teams, {fifaCode: this.fifaCode});
-                    this.allMatches = _.orderBy(_.flatten(_.concat(
-                        _.map(data.groups, 'matches'),
-                        _.map(data.knockout, 'matches'),
-                    )), 'date');
-                });
+            dataApi.getTeams().then(teams => {
+                    this.team = _.find(teams, {fifaCode: this.fifaCode});
+            });
+            dataApi.getMatches().then(matches => {
+               this.allMatches = matches;
+            });
         },
         components: {
             MatchItem,

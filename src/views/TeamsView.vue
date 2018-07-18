@@ -21,11 +21,9 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import _ from 'lodash';
+    import dataApi from '../helpers/dataApi';
     import TeamItem from '../components/TeamItem';
-
-    const WORLDCUP_DATA_URL = 'https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json';
 
     export default {
         data() {
@@ -53,11 +51,9 @@
             },
         },
         mounted() {
-            axios.get(WORLDCUP_DATA_URL)
-                .then(response => response.data)
-                .then(data => {
-                    this.teams = data.teams;
-                });
+            dataApi.getTeams().then(teams => {
+                this.teams = teams;
+            });
         },
         components: {
             TeamItem,
