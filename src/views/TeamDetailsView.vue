@@ -4,7 +4,7 @@
             <h2>{{team.name}}</h2>
             <img class="team-details__flag" :src="team.flag" :alt="team.name">
             <div class="team-details__matches">
-                <pre v-for="match in matches">{{match}}</pre>
+                <match-item v-for="match in matches" :key="match.id" :match="match"/>
             </div>
         </div>
         <div v-else>
@@ -16,6 +16,7 @@
 
 <script>
     import axios from 'axios';
+    import MatchItem from '../components/MatchItem';
 
     const WORLDCUP_DATA_URL = 'https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json';
 
@@ -47,6 +48,9 @@
                         _.map(data.knockout, 'matches'),
                     )), 'date');
                 });
+        },
+        components: {
+            MatchItem,
         },
     };
 </script>
